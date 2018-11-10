@@ -19,7 +19,7 @@ public class SampleController {
 
 	@RequestMapping(value = "", method = RequestMethod.GET)
 	public String hello() {
-		return "Hello world!!";
+		return "Hello world!";
 	}
 
 	@RequestMapping(value = "select", method = RequestMethod.GET)
