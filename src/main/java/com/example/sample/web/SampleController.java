@@ -1,8 +1,10 @@
 package com.example.sample.web;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -54,8 +56,12 @@ public class SampleController {
 	}
 
 	@PostMapping("paypal")
-	public String paypal(HttpServletRequest request) {
+	public String paypal(HttpServletRequest request) throws IOException {
 		System.out.println("paypal test");
+
+		String result = request.getReader().lines().collect(Collectors.joining("\r\n"));
+		System.out.println(result);
+
 		Map<String, String> configMap = new HashMap<>();
 
 		// Endpoints are varied depending on whether sandbox OR live is chosen for mode
