@@ -30,5 +30,6 @@ dependencies {
 	compileOnly('org.projectlombok:lombok')
 	runtime('org.postgresql:postgresql')
 	implementation('org.springframework.boot:spring-boot-starter-web')
+	implementation 'com.paypal.sdk:paypal-core:1.7.0'
 	testImplementation('org.springframework.boot:spring-boot-starter-test')
 }

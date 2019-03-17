@@ -1,14 +1,20 @@
 package com.example.sample.web;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.sample.domain.Sample;
 import com.example.sample.service.SampleService;
+import com.paypal.ipn.IPNMessage;
 
 @RestController
 @RequestMapping("sample")
@@ -45,6 +51,35 @@ public class SampleController {
 	@RequestMapping(value = "exception")
 	public String exception() throws Exception {
 		throw new Exception("Exception test.");
+	}
+
+	@PostMapping("paypal")
+	public String paypal(HttpServletRequest request) {
+		System.out.println("paypal test");
+		Map<String, String> configMap = new HashMap<>();
+
+		// Endpoints are varied depending on whether sandbox OR live is chosen for mode
+		configMap.put("mode", "sandbox");
+
+		// Connection Information. These values are defaulted in SDK. If you want to override default values, uncomment it and add your value.
+		// configMap.put("http.ConnectionTimeOut", "5000");
+		// configMap.put("http.Retry", "2");
+		// configMap.put("http.ReadTimeOut", "30000");
+		// configMap.put("http.MaxConnection", "100");
+
+		IPNMessage ipnlistener = new IPNMessage(request, configMap);
+
+		// PyaPal 認証
+		boolean isIpnVerified = ipnlistener.validate();
+		if (isIpnVerified) {
+			String transactionType = ipnlistener.getTransactionType();
+			Map<String, String> map = ipnlistener.getIpnMap();
+
+			System.out.println(transactionType);
+			System.out.println(map);
+		}
+
+		return "paypal test";
 	}
 
 }
