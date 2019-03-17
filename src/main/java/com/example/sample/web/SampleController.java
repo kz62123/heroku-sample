@@ -61,6 +61,7 @@ public class SampleController {
 
 		String result = request.getReader().lines().collect(Collectors.joining("\r\n"));
 		System.out.println(result);
+		System.out.println(request.getParameterMap());
 
 		Map<String, String> configMap = new HashMap<>();
 
