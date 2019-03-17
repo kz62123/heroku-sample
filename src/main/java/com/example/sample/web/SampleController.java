@@ -1,6 +1,7 @@
 package com.example.sample.web;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -62,7 +63,9 @@ public class SampleController {
 		String result = request.getReader().lines().collect(Collectors.joining("\r\n"));
 		System.out.println(result);
 		request.getParameterMap().values().forEach(value -> {
-			System.out.println(value);
+			Arrays.asList(value).forEach(v -> {
+				System.out.println(v);
+			});
 		});
 
 		Map<String, String> configMap = new HashMap<>();
