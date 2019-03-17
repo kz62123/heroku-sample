@@ -71,6 +71,7 @@ public class SampleController {
 
 		// PyaPal 認証
 		boolean isIpnVerified = ipnlistener.validate();
+		System.out.println(isIpnVerified);
 		if (isIpnVerified) {
 			String transactionType = ipnlistener.getTransactionType();
 			Map<String, String> map = ipnlistener.getIpnMap();
